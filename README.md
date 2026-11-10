@@ -1,5 +1,7 @@
 # AETHER NOVA PRO — 3D Planar Magnetic Headset & Acoustic Telemetry Lab
 
+> 🌐 **Live Interactive 3D Demo:** [https://ismael-sallami.github.io/gaming-headset-3d/](https://ismael-sallami.github.io/gaming-headset-3d/)
+
 [![Three.js](https://img.shields.io/badge/Three.js-r170-black?style=for-the-badge&logo=three.dot.js)](https://threejs.org/)
 [![WebGL 2.0](https://img.shields.io/badge/WebGL-2.0-990000?style=for-the-badge&logo=webgl)](https://www.khronos.org/webgl/)
 [![GSAP](https://img.shields.io/badge/GSAP-3.12-green?style=for-the-badge&logo=greensock)](https://greensock.com/gsap/)
