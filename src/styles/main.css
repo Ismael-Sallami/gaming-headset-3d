@@ -364,6 +364,28 @@ body {
   clip-path: polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px));
 }
 
+.hud-collapsible-menu {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 16px;
+  flex: 1;
+}
+
+.mobile-header-actions {
+  display: none;
+}
+
+.inspector-top-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.inspector-close-btn {
+  display: none;
+}
+
 .brand-cluster {
   display: flex;
   flex-direction: column;
@@ -992,5 +1014,178 @@ body {
 
   .chapter-card {
     width: min(440px, calc(100vw - 380px));
+  }
+}
+
+@media (max-width: 768px) {
+  #hud-top-bar {
+    top: 8px;
+    left: 8px;
+    right: 8px;
+    padding: 8px 12px;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    gap: 8px;
+    clip-path: none !important;
+    border-radius: 4px;
+  }
+
+  .brand-cluster {
+    min-width: auto;
+  }
+
+  .brand-badge,
+  .brand-subtitle {
+    display: none;
+  }
+
+  .brand-name {
+    font-size: 13px;
+    letter-spacing: 0.04em;
+  }
+
+  .mobile-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .hud-collapsible-menu {
+    display: none;
+  }
+
+  #hud-top-bar.is-mobile-menu-open .hud-collapsible-menu {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    right: 0;
+    background: rgba(7, 9, 14, 0.98);
+    border: 1px solid var(--accent-primary);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.92), 0 0 20px rgba(0, 240, 255, 0.25);
+    padding: 16px;
+    gap: 14px;
+    max-height: calc(85vh - 60px);
+    overflow-y: auto;
+    z-index: 100;
+    backdrop-filter: blur(16px);
+  }
+
+  #hud-top-bar.is-mobile-menu-open .telemetry-strip {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    width: 100%;
+    padding: 8px;
+  }
+
+  #hud-top-bar.is-mobile-menu-open .hud-controls-cluster {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+  }
+
+  #hud-top-bar.is-mobile-menu-open .segmented-buttons {
+    display: flex;
+    width: 100%;
+  }
+
+  #hud-top-bar.is-mobile-menu-open .segmented-buttons .hud-btn {
+    flex: 1;
+    text-align: center;
+    padding: 7px 4px;
+    font-size: 10px;
+  }
+
+  /* Component Inspector Mobile Drawer */
+  #component-inspector {
+    position: fixed;
+    left: 8px;
+    right: 8px;
+    bottom: 8px;
+    top: auto;
+    width: auto;
+    max-width: none;
+    max-height: 72vh;
+    overflow-y: auto;
+    transform: translateY(115%);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease;
+    z-index: 95;
+    background: rgba(7, 9, 14, 0.98);
+    border: 1px solid var(--accent-primary);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(16px);
+  }
+
+  #component-inspector.is-mobile-open {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .inspector-close-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3px 8px;
+    font-size: 12px;
+    color: var(--accent-primary);
+    cursor: pointer;
+  }
+
+  /* Ocultar barra scrub fija en móviles para no colisionar con las tarjetas narrativas */
+  #hud-bottom-bar {
+    display: none;
+  }
+
+  /* Tarjetas narrativas de scroll optimizadas para pantalla vertical */
+  .scroll-chapter {
+    padding-left: 0 !important;
+  }
+
+  .chapter-card {
+    left: 10px !important;
+    right: 10px !important;
+    bottom: 12px !important;
+    width: auto !important;
+    max-width: calc(100vw - 20px) !important;
+    min-width: 0 !important;
+    padding: 10px 14px;
+    background: rgba(7, 9, 14, 0.92);
+    border-left: 3px solid var(--accent-primary);
+    backdrop-filter: blur(12px);
+  }
+
+  .chapter-title {
+    font-size: 15px;
+    margin-bottom: 2px;
+  }
+
+  .chapter-subtitle {
+    font-size: 11px;
+    margin-bottom: 4px;
+  }
+
+  .chapter-body {
+    font-size: 11.5px;
+    line-height: 1.35;
+    margin-bottom: 8px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .chapter-metrics {
+    gap: 6px;
+    padding-top: 6px;
+  }
+
+  .chapter-metric-item strong {
+    font-size: 10px;
   }
 }

@@ -112,6 +112,11 @@ class TelemetryLabApp {
       btnAudioToggle: document.getElementById('btn-audio-toggle'),
       btnAudioLabel: document.getElementById('btn-audio-label'),
       btnResetFocus: document.getElementById('btn-reset-focus'),
+      hudTopBar: document.getElementById('hud-top-bar'),
+      componentInspector: document.getElementById('component-inspector'),
+      btnMobileMenu: document.getElementById('btn-mobile-menu'),
+      btnMobileInspector: document.getElementById('btn-mobile-inspector'),
+      btnCloseInspector: document.getElementById('btn-close-inspector'),
       renderModeBtns: Array.from(document.querySelectorAll('[data-render-mode]')),
       themeBtns: Array.from(document.querySelectorAll('[data-theme-key]')),
       audioPresetBtns: Array.from(document.querySelectorAll('[data-audio-preset]')),
@@ -243,6 +248,49 @@ class TelemetryLabApp {
         });
       });
     }
+
+    // 9. Alternador de Menú Móvil Táctico ([MENÚ] // [CERRAR])
+    if (this.dom.btnMobileMenu && this.dom.hudTopBar) {
+      this.dom.btnMobileMenu.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isOpen = this.dom.hudTopBar.classList.toggle('is-mobile-menu-open');
+        this.dom.btnMobileMenu.setAttribute('aria-expanded', String(isOpen));
+        this.dom.btnMobileMenu.textContent = isOpen ? '[CERRAR]' : '[MENÚ]';
+      });
+    }
+
+    // 10. Alternador de Panel de Especificaciones en Móvil ([SPECS])
+    if (this.dom.btnMobileInspector && this.dom.componentInspector) {
+      this.dom.btnMobileInspector.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isOpen = this.dom.componentInspector.classList.toggle('is-mobile-open');
+        this.dom.btnMobileInspector.classList.toggle('is-active', isOpen);
+      });
+    }
+
+    // 11. Botón Cerrar Inspector ([X])
+    if (this.dom.btnCloseInspector && this.dom.componentInspector) {
+      this.dom.btnCloseInspector.addEventListener('click', (e) => {
+        e.stopPropagation();
+        this.dom.componentInspector.classList.remove('is-mobile-open');
+        if (this.dom.btnMobileInspector) {
+          this.dom.btnMobileInspector.classList.remove('is-active');
+        }
+      });
+    }
+
+    // 12. Cerrar menú desplegable al hacer clic fuera del panel superior
+    document.addEventListener('click', (e) => {
+      if (this.dom.hudTopBar && this.dom.hudTopBar.classList.contains('is-mobile-menu-open')) {
+        if (!this.dom.hudTopBar.contains(e.target)) {
+          this.dom.hudTopBar.classList.remove('is-mobile-menu-open');
+          if (this.dom.btnMobileMenu) {
+            this.dom.btnMobileMenu.setAttribute('aria-expanded', 'false');
+            this.dom.btnMobileMenu.textContent = '[MENÚ]';
+          }
+        }
+      }
+    });
   }
 
   /**
@@ -518,6 +566,13 @@ class TelemetryLabApp {
     });
 
     this.renderMetricsGrid(metrics);
+
+    if (window.innerWidth <= 768 && this.dom.componentInspector) {
+      this.dom.componentInspector.classList.add('is-mobile-open');
+      if (this.dom.btnMobileInspector) {
+        this.dom.btnMobileInspector.classList.add('is-active');
+      }
+    }
   }
 
   /**
